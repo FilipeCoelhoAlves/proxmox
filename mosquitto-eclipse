@@ -12,7 +12,28 @@ Arquivo de configuração:
     
 Com essa configuração subo um servidor mqtt sem autenticação.
 
+Validando conectividade adicionar segurança:
 
-  
+Adiconar em cada linha no formato user:password os usuarios e senhas
+    echo "blovis:1234!">> /etc/mosquitto/password      
+Realizar o hash da senha para dificultar a leitura
+    mosquitto_passwd -U /etc/mosquitto/password
+Remover conexão anonima
+    sed -i 's/^allow_anonymous true/allow_anonymous false/g' /etc/mosquitto/mosquitto.conf
+Adicionar password file
+    sed -i 's/^#password_file/password_file \/etc\/mosquitto\/password/g' /etc/mosquitto/mosquitto.conf
+    
+Persistencia:
+    Intervalo de autosave
+        sed -i 's/^#autosave_interval 1800/autosave_interval 1800/g' /etc/mosquitto/mosquitto.conf
+    Ativa persistencia
+        sed -i 's/^#persistence false/persistence true/g' /etc/mosquitto/mosquitto.conf
+    Arquivo
+        sed -i 's/^#persistence_file mosquitto.db/persistence_file mosquitto.db/g' /etc/mosquitto/mosquitto.conf
+    Caminho
+        sed -i 's/^#persistence_location/persistence_location \/var\/lib\/mosquitto/g' /etc/mosquitto/mosquitto.conf
+    Criar pasta
+        mkdir /var/lib/mosquitto
+        chown mosquitto /var/lib/mosquitto -R
     
  
