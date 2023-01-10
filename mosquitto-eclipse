@@ -1,0 +1,18 @@
+Instalação do mqtt em VM alpine
+Testes de conexão e envio de mensagens com mqtt explorer
+
+
+apk add mosquitto
+Arquivo de configuração:
+    /etc/mosquitto/mosquitto.conf
+    cp /etc/mosquitto/mosquitto.conf /etc/mosquitto/mosquitto.back                         //Backup do conf file
+    sed -i 's/#allow_anonymous false/allow_anonymous true/g' /etc/mosquitto/mosquitto.conf
+    sed -i 's/#listener/listener 1883/g' /etc/mosquitto/mosquitto.conf
+    mosquitto -d -c /etc/mosquitto/mosquitto.conf                                         //Start do mqtt                                         
+    
+Com essa configuração subo um servidor mqtt sem autenticação.
+
+
+  
+    
+ 
